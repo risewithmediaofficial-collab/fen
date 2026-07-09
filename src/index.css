@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    @apply bg-[#FFFFFF] text-[#111111];
+    @apply dark:bg-[#0A0A0A] dark:text-white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background: rgba(139, 92, 246, 0.2);
+    color: #111111;
+  }
+
+  .dark ::selection {
+    background: rgba(139, 92, 246, 0.3);
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#333333] dark:bg-[#555555] rounded-full;
+  }
+}
+
+/* ============================================================
+   MARQUEE — Infinite horizontal scroll
+   ============================================================ */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blur-reveal {
+  from { opacity: 0; filter: blur(12px); transform: translateY(10px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+@keyframes text-clip-reveal {
+  from { clip-path: inset(0 100% 0 0); opacity: 0; }
+  to { clip-path: inset(0 0% 0 0); opacity: 1; }
+}
+
+@keyframes progress-auto {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes ping-ring {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@layer components {
+
+  /* ── Marquee track ────────────────────────────────────── */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  .marquee-track-reverse {
+    display: flex;
+    width: max-content;
+    animation: marquee-reverse 30s linear infinite;
+  }
+
+  .marquee-track:hover,
+  .marquee-track-reverse:hover {
+    animation-play-state: paused;
+  }
+
+  /* ── Boxless/Cardless resets ──────────────────────────── */
+  .glass-card {
+    @apply bg-transparent border-0 rounded-none shadow-none;
+  }
+
+  .glass-card-light {
+    @apply bg-transparent border-0 rounded-none shadow-none;
+  }
+
+  /* ── Text utilities ───────────────────────────────────── */
+  .gradient-text {
+    @apply text-[#111111] dark:text-white font-extrabold;
+  }
+
+  .gradient-text-amber {
+    @apply text-[#111111] dark:text-white font-extrabold;
+  }
+
+  /* ── Glow heading ─────────────────────────────────────── */
+  .glow-heading {
+    text-shadow: 0 0 80px rgba(139, 92, 246, 0.3), 0 0 160px rgba(99, 102, 241, 0.15);
+  }
+
+  /* ── Premium Apple/Linear Buttons ────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm;
+    @apply bg-[#111111] hover:bg-black text-white;
+    @apply dark:bg-white dark:text-black dark:hover:bg-[#F7F7F7];
+    @apply border border-transparent;
+    @apply hover:scale-[1.03] active:scale-[0.98];
+    @apply transition-all duration-300 ease-in-out;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .dark .btn-primary:hover {
+    box-shadow: 0 4px 20px rgba(255,255,255,0.12), 0 8px 32px rgba(255,255,255,0.06);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm;
+    @apply text-[#111111] dark:text-white bg-transparent;
+    @apply hover:bg-[#F7F7F7] dark:hover:bg-white/5;
+    @apply hover:scale-[1.03] active:scale-[0.98];
+    @apply transition-all duration-300 ease-in-out;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .dark .btn-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm;
+    @apply text-[#555555] dark:text-[#9E9E9E];
+    @apply hover:text-[#111111] dark:hover:text-white;
+    @apply transition-all duration-300;
+  }
+
+  /* ── Badge ────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+
+  .badge-primary {
+    @apply badge bg-[#F7F7F7] text-[#555555] border border-black/5;
+    @apply dark:bg-white/5 dark:text-white/70 dark:border-white/5;
+  }
+
+  .badge-green {
+    @apply badge bg-emerald-50 text-emerald-700 border border-emerald-200/50;
+    @apply dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-800/20;
+  }
+
+  .badge-amber {
+    @apply badge bg-amber-50 text-amber-700 border border-amber-200/50;
+    @apply dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800/20;
+  }
+
+  .badge-red {
+    @apply badge bg-red-50 text-red-700 border border-red-200/50;
+    @apply dark:bg-red-950/20 dark:text-red-400 dark:border-red-800/20;
+  }
+
+  /* ── Section spacing ──────────────────────────────────── */
+  .section-padding {
+    @apply py-24 px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-max {
+    @apply max-w-6xl mx-auto;
+  }
+
+  /* ── Pill label (section headers) ────────────────────── */
+  .pill-label {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide;
+    @apply bg-[#F7F7F7] border border-black/5 text-[#555555];
+    @apply dark:bg-white/5 dark:border-white/5 dark:text-[#CFCFCF];
+  }
+
+  /* ── Input ────────────────────────────────────────────── */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl text-sm font-medium;
+    @apply bg-white;
+    @apply text-[#111111] dark:bg-[#111111] dark:text-white;
+    @apply placeholder-[#9E9E9E];
+    @apply focus:outline-none;
+    @apply transition-all duration-200;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .dark .input-field {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .input-field:focus {
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+  }
+
+  /* ── Stat card box reset ──────────────────────────────── */
+  .stat-card {
+    @apply bg-transparent border-0 p-0 text-center rounded-none shadow-none;
+    @apply transition-all duration-300;
+  }
+
+  /* ── Feature card box reset ───────────────────────────── */
+  .feature-card {
+    @apply bg-transparent border-0 p-0 rounded-none shadow-none;
+    @apply transition-all duration-300 cursor-pointer;
+  }
+
+  /* ── Glow orb background ──────────────────────────────── */
+  .glow-orb {
+    @apply absolute rounded-full pointer-events-none;
+    filter: blur(80px);
+  }
+
+  /* ── Section divider line ─────────────────────────────── */
+  .section-divider {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-black/10 to-transparent;
+    @apply dark:via-white/5;
+  }
+
+  /* ── Progress bar auto-animate ───────────────────────── */
+  .progress-auto {
+    animation: progress-auto 5s linear forwards;
+  }
+
+  /* ── Timeline dot ─────────────────────────────────────── */
+  .timeline-dot {
+    @apply w-2 h-2 rounded-full bg-[#9E9E9E] dark:bg-[#555555] shrink-0 mt-2;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  .animation-delay-600 { animation-delay: 600ms; }
+  .animation-delay-700 { animation-delay: 700ms; }
+  .animation-delay-800 { animation-delay: 800ms; }
+
+  .mask-gradient-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .mask-gradient-sides {
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+
+  .blur-reveal {
+    animation: blur-reveal 0.6s ease-out both;
+  }
+
+  .paused {
+    animation-play-state: paused;
+  }
+
+  .running {
+    animation-play-state: running;
+  }
+}
