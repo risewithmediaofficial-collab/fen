@@ -13,7 +13,7 @@ const roles = [
 
 // Published Google Sheet CSV URL
 // Replace with: https://docs.google.com/spreadsheets/d/e/YOUR_SHEET_ID/pub?output=csv
-const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT2OjCzvkTcEITer9xs1xUQETtG-CJh82N2hLwDdzOUobaL4HV91OL_CYMStdyl5ibn7sWGTz0VWa13/pub?output=csv";
+const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTHUM188RJ9SqhMD-1KBbWQwSUjvgIhfDLGNazd8EhdRmQPmEC2B-0lzg5ytyYqMNcERyydppPPb9kn/pub?output=csv";
 
 const parseCSV = (text) => {
   const lines = text.split('\n');
@@ -62,6 +62,20 @@ export default function LoginPage() {
 
     if (!email || !pass) {
       setError('Please enter both your email address and password.');
+      return;
+    }
+
+    // Default mock accounts for development & testing
+    const mockAccounts = {
+      'mani@example.com': 'student',
+      'rajesh@example.com': 'mentor',
+      'industry@example.com': 'industry',
+      'admin@fen.in': 'admin'
+    };
+
+    if (mockAccounts[email.toLowerCase()] && pass === '123456') {
+      login(mockAccounts[email.toLowerCase()]);
+      navigate('/dashboard');
       return;
     }
 

@@ -44,13 +44,13 @@ const mockUsers = {
 };
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(mockUsers.student);
 
   const login = (role = 'student') => {
     setUser(mockUsers[role] || mockUsers.student);
   };
 
-  const logout = () => setUser(null);
+  const logout = () => setUser(mockUsers.student);
 
   const isAuthenticated = !!user;
 

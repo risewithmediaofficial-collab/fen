@@ -179,6 +179,7 @@ export default function EventsPage() {
         isOpen={bookingOpen}
         onClose={handleCloseModal}
         targetName={targetName}
+        targetId={targetEventId}
         targetType="Event"
       />
     </div>

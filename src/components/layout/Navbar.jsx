@@ -118,7 +118,8 @@ export default function Navbar() {
             </div>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-3">
+              <Link to="/register" className="btn-primary text-xs px-3.5 py-1.5 rounded-xl font-semibold hover:opacity-90 transition-all">Join FEN</Link>
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
@@ -134,76 +135,6 @@ export default function Navbar() {
                   {isDark ? <Sun size={17} /> : <Moon size={17} />}
                 </motion.div>
               </button>
-
-              {user ? (
-                <>
-                  {/* Notifications */}
-                  <button className="relative p-2 rounded-lg text-[#9E9E9E] hover:text-[#111111] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-all duration-200">
-                    <Bell size={17} />
-                    <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full" />
-                  </button>
-
-                  {/* Profile Dropdown */}
-                  <div className="relative" ref={profileRef}>
-                    <button
-                      onClick={() => setIsProfileOpen(!isProfileOpen)}
-                      className="flex items-center gap-2 pl-1.5 pr-2.5 py-1.5 rounded-xl hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-all duration-200"
-                    >
-                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
-                        {user.avatar}
-                      </div>
-                      <span className="text-sm font-medium text-[#111111] dark:text-white hidden sm:block max-w-[90px] truncate">
-                        {user.name.split(' ')[0]}
-                      </span>
-                      <ChevronDown size={13} className={`text-[#9E9E9E] transition-transform duration-200 ${isProfileOpen ? 'rotate-180' : ''}`} />
-                    </button>
-
-                    <AnimatePresence>
-                      {isProfileOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 6, scale: 0.96 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 6, scale: 0.96 }}
-                          transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
-                          className="absolute right-0 mt-2 w-56 bg-white dark:bg-[#111111] border border-black/[0.08] dark:border-white/[0.08] rounded-2xl overflow-hidden"
-                          style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06)' }}
-                        >
-                          <div className="p-3 border-b border-black/[0.06] dark:border-white/[0.06]">
-                            <p className="font-semibold text-sm text-[#111111] dark:text-white truncate">{user.name}</p>
-                            <p className="text-xs text-[#9E9E9E] truncate mt-0.5">{user.email}</p>
-                            <span className="mt-1.5 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#F7F7F7] dark:bg-white/5 text-[#555555] dark:text-white/70 capitalize">
-                              {user.role}
-                            </span>
-                          </div>
-                          <div className="p-1.5 space-y-0.5">
-                            <button
-                              onClick={() => { navigate('/dashboard'); setIsProfileOpen(false); }}
-                              className="btn-ghost w-full justify-start text-[#555555] dark:text-[#CFCFCF] hover:bg-black/[0.04] dark:hover:bg-white/[0.04] rounded-lg"
-                            >
-                              <LayoutDashboard size={14} /> Dashboard
-                            </button>
-                            <button className="btn-ghost w-full justify-start text-[#555555] dark:text-[#CFCFCF] hover:bg-black/[0.04] dark:hover:bg-white/[0.04] rounded-lg">
-                              <Settings size={14} /> Settings
-                            </button>
-                            <div className="h-px bg-black/[0.06] dark:bg-white/[0.06] mx-2 my-1" />
-                            <button
-                              onClick={() => { logout(); setIsProfileOpen(false); navigate('/'); }}
-                              className="btn-ghost w-full justify-start text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg"
-                            >
-                              <LogOut size={14} /> Sign Out
-                            </button>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </>
-              ) : (
-                <div className="hidden sm:flex items-center gap-2">
-                  <Link to="/login" className="btn-ghost text-[#555555] dark:text-[#CFCFCF]">Sign In</Link>
-                  <Link to="/register" className="btn-primary text-sm px-4 py-2">Join FEN</Link>
-                </div>
-              )}
 
               {/* Mobile menu toggle */}
               <button
@@ -255,17 +186,6 @@ export default function Navbar() {
                       </Link>
                     </motion.div>
                   ))}
-                  {!user && (
-                    <motion.div
-                      className="pt-3 flex gap-2"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: navLinks.length * 0.04 }}
-                    >
-                      <Link to="/login" className="btn-secondary flex-1 justify-center text-sm py-2.5">Sign In</Link>
-                      <Link to="/register" className="btn-primary flex-1 justify-center text-sm py-2.5">Join FEN</Link>
-                    </motion.div>
-                  )}
                 </div>
               </motion.div>
             )}

@@ -8,11 +8,11 @@ import BookingModal from '../components/ui/BookingModal';
 export default function TrainingPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [targetName, setTargetName] = useState('');
+  const [targetId, setTargetId] = useState('');
   const [targetType, setTargetType] = useState('Training');
+
   return (
     <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#0A0A0A] pt-20 transition-colors duration-300">
-      {/* Header */}
-      {/* Header */}
       {/* Header */}
       <div className="bg-[#F7F7F7] dark:bg-[#111111] border-b border-black/5 dark:border-white/5 text-[#111111] dark:text-white">
         <div className="container-max px-4 sm:px-6 lg:px-8 py-12">
@@ -20,9 +20,11 @@ export default function TrainingPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFFFFF] border border-black/5 dark:bg-[#0A0A0A] dark:border-white/5 text-xs font-semibold mb-4">
               <span className="text-[#555555] dark:text-[#CFCFCF]">Training Module</span>
             </div>
-            <h1 className="font-display font-bold text-3xl sm:text-4xl mb-3 text-gray-900 dark:text-white">
-              Sunday Training Sessions
-            </h1>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+              <h1 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 dark:text-white">
+                Sunday Training Sessions
+              </h1>
+            </div>
             <p className="text-gray-500 dark:text-gray-400 text-base mb-6 max-w-lg">
               Every Sunday — free, expert-led training sessions in Krishnagiri. Attend, learn, earn certificates.
             </p>
@@ -111,6 +113,7 @@ export default function TrainingPage() {
                 <button
                   onClick={() => {
                     setTargetName(t.title);
+                    setTargetId(t.id);
                     setTargetType('Training');
                     setBookingOpen(true);
                   }}
@@ -149,6 +152,7 @@ export default function TrainingPage() {
               <button
                 onClick={() => {
                   setTargetName(event.title);
+                  setTargetId(event.id);
                   setTargetType('Event');
                   setBookingOpen(true);
                 }}
@@ -165,7 +169,9 @@ export default function TrainingPage() {
         isOpen={bookingOpen}
         onClose={() => setBookingOpen(false)}
         targetName={targetName}
+        targetId={targetId}
         targetType={targetType}
+        isProvider={false}
       />
     </div>
   );

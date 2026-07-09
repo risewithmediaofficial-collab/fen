@@ -8,6 +8,7 @@ import BookingModal from '../components/ui/BookingModal';
 export default function IndustriesPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [targetName, setTargetName] = useState('');
+  const [targetId, setTargetId] = useState('');
   return (
     <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#0A0A0A] pt-20 transition-colors duration-300">
       {/* Header */}
@@ -97,9 +98,10 @@ export default function IndustriesPage() {
                   <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold border border-black/5 dark:border-white/10 text-[#555555] dark:text-[#CFCFCF] hover:bg-black/5 dark:hover:bg-white/5 transition-all">
                     View Profile
                   </button>
-                  <button
+                   <button
                     onClick={() => {
                       setTargetName(ind.name);
+                      setTargetId(ind.id);
                       setBookingOpen(true);
                     }}
                     className="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-[#111111] dark:bg-white text-white dark:text-black hover:opacity-90 transition-all"
@@ -132,6 +134,7 @@ export default function IndustriesPage() {
         isOpen={bookingOpen}
         onClose={() => setBookingOpen(false)}
         targetName={targetName}
+        targetId={targetId}
         targetType="Industry"
       />
     </div>

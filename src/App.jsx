@@ -50,8 +50,6 @@ function PageWrapper({ children }) {
 
 function AppRoutes() {
   const location = useLocation();
-  const noFooterRoutes = ['/login', '/register'];
-  const showFooter = !noFooterRoutes.includes(location.pathname);
 
   return (
     <>
@@ -60,9 +58,7 @@ function AppRoutes() {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageWrapper><HomePage /></PageWrapper>} />
-          <Route path="/login" element={<PageWrapper><LoginPage /></PageWrapper>} />
-          <Route path="/register" element={<PageWrapper><RegisterPage /></PageWrapper>} />
-          <Route path="/dashboard" element={<PageWrapper><DashboardPage /></PageWrapper>} />
+          <Route path="/dashboard" element={<PageWrapper><HomePage /></PageWrapper>} />
           {/* <Route path="/jobs" element={<PageWrapper><JobsPage /></PageWrapper>} /> */}
           <Route path="/mentorship" element={<PageWrapper><MentorshipPage /></PageWrapper>} />
           <Route path="/training" element={<PageWrapper><TrainingPage /></PageWrapper>} />
@@ -70,6 +66,8 @@ function AppRoutes() {
           <Route path="/events" element={<PageWrapper><EventsPage /></PageWrapper>} />
           <Route path="/industries" element={<PageWrapper><IndustriesPage /></PageWrapper>} />
           <Route path="/networking" element={<PageWrapper><NetworkingPage /></PageWrapper>} />
+          <Route path="/login" element={<PageWrapper><HomePage /></PageWrapper>} />
+          <Route path="/register" element={<PageWrapper><RegisterPage /></PageWrapper>} />
           {/* 404 fallback */}
           <Route path="*" element={
             <PageWrapper>
@@ -85,7 +83,7 @@ function AppRoutes() {
           } />
         </Routes>
       </AnimatePresence>
-      {showFooter && <Footer />}
+      <Footer />
     </>
   );
 }

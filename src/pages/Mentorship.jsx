@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Star, MapPin, MessageCircle, Users, Search, Calendar, Video, UserCheck } from 'lucide-react';
+import { Star, MapPin, Search } from 'lucide-react';
 import { FadeInWhenVisible, StaggerContainer, fadeInUp } from '../components/ui/AnimationUtils';
 import { mentors } from '../data/mockData';
 import BookingModal from '../components/ui/BookingModal';
@@ -9,9 +8,10 @@ import BookingModal from '../components/ui/BookingModal';
 export default function MentorshipPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [targetName, setTargetName] = useState('');
+  const [targetId, setTargetId] = useState('');
+
   return (
     <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#0A0A0A] pt-20 transition-colors duration-300">
-      {/* Header */}
       {/* Header */}
       <div className="bg-[#F7F7F7] dark:bg-[#111111] border-b border-black/5 dark:border-white/5 text-[#111111] dark:text-white">
         <div className="container-max px-4 sm:px-6 lg:px-8 py-12">
@@ -19,9 +19,11 @@ export default function MentorshipPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFFFFF] border border-black/5 dark:bg-[#0A0A0A] dark:border-white/5 text-xs font-semibold mb-4">
               <span className="text-[#555555] dark:text-[#CFCFCF]">Mentorship</span>
             </div>
-            <h1 className="font-display font-bold text-3xl sm:text-4xl mb-3 text-gray-900 dark:text-white">
-              Find Your Mentor
-            </h1>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+              <h1 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 dark:text-white">
+                Find Your Mentor
+              </h1>
+            </div>
             <p className="text-gray-500 dark:text-gray-400 text-base mb-6 max-w-lg">
               Connect with experienced professionals for career guidance, startup mentoring, and skill development
             </p>
@@ -119,6 +121,7 @@ export default function MentorshipPage() {
                     disabled={!mentor.available}
                     onClick={() => {
                       setTargetName(mentor.name);
+                      setTargetId(mentor.id);
                       setBookingOpen(true);
                     }}
                     className="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-gray-900 hover:bg-gray-800 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all"
@@ -136,7 +139,9 @@ export default function MentorshipPage() {
         isOpen={bookingOpen}
         onClose={() => setBookingOpen(false)}
         targetName={targetName}
+        targetId={targetId}
         targetType="Mentor"
+        isProvider={false}
       />
     </div>
   );
