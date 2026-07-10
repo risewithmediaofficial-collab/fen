@@ -1,9 +1,22 @@
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function BookingModal({ isOpen, onClose, targetName, targetType }) {
   const navigate = useNavigate();
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

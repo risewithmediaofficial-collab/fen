@@ -10,6 +10,11 @@ export default function RegisterPage() {
   const [selectedRole, setSelectedRole] = useState(null); // 'student' or 'mentor'
   const navigate = useNavigate();
 
+  const handleSelectRole = (role) => {
+    setSelectedRole(role);
+    localStorage.setItem('fen_has_joined', 'true');
+  };
+
   return (
     <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#0A0A0A] px-4 pt-28 pb-16 transition-colors duration-300 flex flex-col items-center">
       <div className="container-max max-w-3xl w-full relative z-10 space-y-8">
@@ -39,7 +44,7 @@ export default function RegisterPage() {
             {/* Student Card */}
             <motion.div
               whileHover={{ scale: 1.02, y: -2 }}
-              onClick={() => setSelectedRole('student')}
+              onClick={() => handleSelectRole('student')}
               className="glass-card-light cursor-pointer p-6 flex flex-col items-center text-center space-y-4 border border-black/5 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all"
             >
               <div className="w-14 h-14 rounded-2xl bg-violet-500/10 text-violet-500 flex items-center justify-center">
@@ -57,7 +62,7 @@ export default function RegisterPage() {
             {/* Mentor Card */}
             <motion.div
               whileHover={{ scale: 1.02, y: -2 }}
-              onClick={() => setSelectedRole('mentor')}
+              onClick={() => handleSelectRole('mentor')}
               className="glass-card-light cursor-pointer p-6 flex flex-col items-center text-center space-y-4 border border-black/5 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all"
             >
               <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
@@ -81,16 +86,6 @@ export default function RegisterPage() {
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <ArrowLeft size={14} /> Back to role selection
-              </button>
-
-              <button
-                onClick={() => {
-                  localStorage.setItem('fen_has_joined', 'true');
-                  navigate('/');
-                }}
-                className="btn-primary text-xs px-4 py-2 font-bold bg-emerald-600 hover:bg-emerald-500 rounded-xl"
-              >
-                Confirm Submission & Finish ✅
               </button>
             </div>
 
