@@ -64,10 +64,10 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/80 dark:bg-[#0A0A0A]/85 backdrop-blur-2xl border-b border-black/[0.06] dark:border-white/[0.06] ${
           isScrolled
-            ? 'bg-white/80 dark:bg-[#0A0A0A]/85 backdrop-blur-2xl border-b border-black/[0.06] dark:border-white/[0.06]'
-            : 'bg-transparent'
+            ? ''
+            : 'lg:bg-transparent lg:backdrop-blur-none lg:border-b-transparent'
         }`}
         style={{
           boxShadow: isScrolled
