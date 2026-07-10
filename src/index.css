@@ -112,13 +112,19 @@
     animation-play-state: paused;
   }
 
-  /* ── Boxless/Cardless resets ──────────────────────────── */
+  /* ── Elegant Minimalist Cards ─────────────────────────── */
   .glass-card {
-    @apply bg-transparent border-0 rounded-none shadow-none;
+    @apply bg-white dark:bg-[#111111] border border-black/5 dark:border-white/10 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] transition-all duration-300;
+  }
+  .glass-card:hover {
+    @apply border-black/15 dark:border-white/20 shadow-[0_10px_25px_rgba(0,0,0,0.04)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.3)] -translate-y-0.5;
   }
 
   .glass-card-light {
-    @apply bg-transparent border-0 rounded-none shadow-none;
+    @apply bg-[#FAFAFA] dark:bg-[#111111] border border-black/5 dark:border-white/5 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.01)] transition-all duration-300;
+  }
+  .glass-card-light:hover {
+    @apply border-black/15 dark:border-white/20 shadow-[0_10px_25px_rgba(0,0,0,0.04)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.3)] -translate-y-0.5;
   }
 
   /* ── Text utilities ───────────────────────────────────── */

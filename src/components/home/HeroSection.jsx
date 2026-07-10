@@ -13,7 +13,7 @@ export default function HeroSection() {
     { x: '80%', y: '15%', label: 'Mentor', size: 'w-12 h-12', delay: 0.5, initialY: 15 },
     { x: '70%', y: '75%', label: 'Industry', size: 'w-14 h-14', delay: 1, initialY: -20 },
     { x: '20%', y: '80%', label: 'Government', size: 'w-11 h-11', delay: 1.5, initialY: 10 },
-    { x: '50%', y: '45%', label: 'FEN Core', size: 'w-16 h-16', delay: 2, initialY: 0, isCenter: true },
+    { x: '50%', y: '50%', label: 'FEN Core', size: 'w-16 h-16', delay: 2, initialY: 0, isCenter: true },
   ];
 
   return (
@@ -134,7 +134,7 @@ export default function HeroSection() {
             {/* SVG Connecting Lines between floating nodes */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
               <motion.line
-                x1="15%" y1="20%" x2="50%" y2="45%"
+                x1="15%" y1="20%" x2="50%" y2="50%"
                 stroke="rgba(139, 92, 246, 0.12)"
                 strokeWidth="1.5"
                 strokeDasharray="4 4"
@@ -143,7 +143,7 @@ export default function HeroSection() {
                 transition={{ duration: 1.5, delay: 1 }}
               />
               <motion.line
-                x1="80%" y1="15%" x2="50%" y2="45%"
+                x1="80%" y1="15%" x2="50%" y2="50%"
                 stroke="rgba(139, 92, 246, 0.12)"
                 strokeWidth="1.5"
                 strokeDasharray="4 4"
@@ -152,7 +152,7 @@ export default function HeroSection() {
                 transition={{ duration: 1.5, delay: 1.2 }}
               />
               <motion.line
-                x1="70%" y1="75%" x2="50%" y2="45%"
+                x1="70%" y1="75%" x2="50%" y2="50%"
                 stroke="rgba(139, 92, 246, 0.12)"
                 strokeWidth="1.5"
                 strokeDasharray="4 4"
@@ -161,7 +161,7 @@ export default function HeroSection() {
                 transition={{ duration: 1.5, delay: 1.4 }}
               />
               <motion.line
-                x1="20%" y1="80%" x2="50%" y2="45%"
+                x1="20%" y1="80%" x2="50%" y2="50%"
                 stroke="rgba(139, 92, 246, 0.12)"
                 strokeWidth="1.5"
                 strokeDasharray="4 4"

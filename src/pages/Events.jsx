@@ -98,81 +98,119 @@ export default function EventsPage() {
         </div>
 
         {/* Events Grid */}
-        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.07}>
-          {allEvents.map((event) => (
-            <motion.div key={event.id} variants={fadeInUp} className="glass-card-light overflow-hidden transition-all duration-300 flex flex-col">
-              <div className="p-6 flex-1 flex flex-col border-b border-black/5 dark:border-white/5">
-                {/* Date Badge + Type */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-14 h-14 rounded-2xl border border-black/5 dark:border-white/10 bg-[#F7F7F7] dark:bg-[#111111] flex flex-col items-center justify-center text-[#111111] dark:text-white shrink-0">
-                    <div className="font-display font-bold text-xl leading-none">{new Date(event.date).getDate()}</div>
-                    <div className="text-[9px] font-medium text-[#9E9E9E]">{new Date(event.date).toLocaleString('en-IN', { month: 'short' })}</div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allEvents.map((event, index) => {
+            const isLarge = index % 2 === 0;
+            const cardPadding = isLarge ? "p-8" : "p-6";
+            const titleSize = isLarge ? "text-lg sm:text-xl" : "text-base";
+            const descSize = isLarge ? "text-sm" : "text-xs";
+            const iconSize = isLarge ? 14 : 11;
+            const gapClass = isLarge ? "space-y-4" : "space-y-3";
+
+            return (
+              <motion.div
+                key={event.id}
+                initial={{
+                  opacity: 0,
+                  x: index % 2 === 0 ? -45 : 45,
+                  y: index % 3 === 0 ? 30 : index % 3 === 1 ? 15 : 5,
+                  scale: isLarge ? 0.96 : 1.02,
+                  rotate: index % 2 === 0 ? -1.5 : 1.5
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  rotate: 0
+                }}
+                viewport={{ once: false, margin: "-50px" }}
+                transition={{
+                  type: "spring",
+                  stiffness: 55,
+                  damping: 14,
+                  mass: 0.9,
+                  delay: (index % 3) * 0.04
+                }}
+                className="glass-card-light overflow-hidden transition-all duration-300 flex flex-col"
+              >
+                <div className={`${cardPadding} flex-1 flex flex-col border-b border-black/5 dark:border-white/5 ${gapClass}`}>
+                  {/* Date Badge + Type */}
+                  <div className="flex items-start justify-between">
+                    <div className={`w-14 h-14 rounded-2xl border border-black/5 dark:border-white/10 bg-[#F7F7F7] dark:bg-[#111111] flex flex-col items-center justify-center text-[#111111] dark:text-white shrink-0`}>
+                      <div className="font-display font-bold text-xl leading-none">{new Date(event.date).getDate()}</div>
+                      <div className="text-[9px] font-medium text-[#9E9E9E]">{new Date(event.date).toLocaleString('en-IN', { month: 'short' })}</div>
+                    </div>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="badge-primary">
+                        {event.type}
+                      </span>
+                      <span className={`badge text-[10px] ${event.mode === 'Online' ? 'badge-primary' : event.mode === 'Hybrid' ? 'badge-amber' : 'badge-green'}`}>
+                        {event.mode}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-col items-end gap-1">
-                    <span className="badge-primary">
-                      {event.type}
-                    </span>
-                    <span className={`badge text-[10px] ${event.mode === 'Online' ? 'badge-primary' : event.mode === 'Hybrid' ? 'badge-amber' : 'badge-green'}`}>
-                      {event.mode}
-                    </span>
+
+                  <div>
+                    <h3 className={`font-display font-bold ${titleSize} text-[#111111] dark:text-white mb-2 leading-tight`}>
+                      {event.title}
+                    </h3>
+                    <p className={`${descSize} text-[#555555] dark:text-[#CFCFCF] mb-1.5 leading-relaxed`}>
+                      <strong>Topic:</strong> {event.topic}
+                    </p>
+                    <p className={`${descSize} text-[#555555] dark:text-[#CFCFCF]`}>
+                      Speaker: <span className="font-medium text-[#111111] dark:text-white">{event.speaker}</span>
+                    </p>
                   </div>
+
+                  <div className="space-y-1.5 text-xs text-[#9E9E9E]">
+                    <div className="flex items-center gap-2"><Clock size={iconSize} /> {event.time}</div>
+                    <div className="flex items-center gap-2"><MapPin size={iconSize} /> {event.venue}</div>
+                  </div>
+
+                  {/* Seat progress */}
+                  <div className="mt-auto pt-2">
+                    <div className="flex justify-between text-xs text-[#9E9E9E] mb-1.5">
+                      <span>{event.registered} registered</span>
+                      <span className={event.registered >= event.seats ? 'text-red-500 font-semibold' : 'text-green-500 font-semibold'}>
+                        {event.seats - event.registered > 0 ? `${event.seats - event.registered} seats left` : 'FULL'}
+                      </span>
+                    </div>
+                    <div className="w-full h-1 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full bg-black dark:bg-white rounded-full transition-all"
+                        style={{ width: `${Math.min((event.registered / event.seats) * 100, 100)}%` }} />
+                    </div>
+                  </div>
+
+                  {registeredEventIds.includes(event.id) ? (
+                    <button
+                      disabled
+                      className="w-full py-3 rounded-xl text-sm font-bold bg-green-500/10 text-emerald-500 border border-green-500/20 cursor-not-allowed"
+                    >
+                      Registered
+                    </button>
+                  ) : (
+                    <button
+                      disabled={event.registered >= event.seats}
+                      onClick={() => {
+                        setTargetName(event.title);
+                        setTargetEventId(event.id);
+                        setBookingOpen(true);
+                      }}
+                      className={`w-full py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
+                        event.registered >= event.seats
+                          ? 'bg-black/5 dark:bg-white/5 text-[#9E9E9E] cursor-not-allowed'
+                          : 'bg-[#111111] dark:bg-white text-white dark:text-black hover:opacity-90'
+                      }`}
+                    >
+                      {event.registered >= event.seats ? 'Event Full' : 'Register Now →'}
+                    </button>
+                  )}
                 </div>
-
-                <h3 className="font-display font-bold text-base text-[#111111] dark:text-white mb-2 leading-tight">{event.title}</h3>
-                <p className="text-xs text-[#555555] dark:text-[#CFCFCF] mb-3 leading-relaxed">
-                  <strong>Topic:</strong> {event.topic}
-                </p>
-                <p className="text-xs text-[#555555] dark:text-[#CFCFCF] mb-4">
-                  Speaker: <span className="font-medium text-[#111111] dark:text-white">{event.speaker}</span>
-                </p>
-
-                <div className="space-y-1.5 mb-4 text-xs text-[#9E9E9E]">
-                  <div className="flex items-center gap-2"><Clock size={11} /> {event.time}</div>
-                  <div className="flex items-center gap-2"><MapPin size={11} /> {event.venue}</div>
-                </div>
-
-                {/* Seat progress */}
-                <div className="mb-4">
-                  <div className="flex justify-between text-xs text-[#9E9E9E] mb-1.5">
-                    <span>{event.registered} registered</span>
-                    <span className={event.registered >= event.seats ? 'text-red-500 font-semibold' : 'text-green-500 font-semibold'}>
-                      {event.seats - event.registered > 0 ? `${event.seats - event.registered} seats left` : 'FULL'}
-                    </span>
-                  </div>
-                  <div className="w-full h-1 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full bg-black dark:bg-white rounded-full transition-all"
-                      style={{ width: `${Math.min((event.registered / event.seats) * 100, 100)}%` }} />
-                  </div>
-                </div>
-
-                {registeredEventIds.includes(event.id) ? (
-                  <button
-                    disabled
-                    className="mt-auto w-full py-3 rounded-xl text-sm font-bold bg-green-500/10 text-emerald-500 border border-green-500/20 cursor-not-allowed"
-                  >
-                    Registered
-                  </button>
-                ) : (
-                  <button
-                    disabled={event.registered >= event.seats}
-                    onClick={() => {
-                      setTargetName(event.title);
-                      setTargetEventId(event.id);
-                      setBookingOpen(true);
-                    }}
-                    className={`mt-auto w-full py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
-                      event.registered >= event.seats
-                        ? 'bg-black/5 dark:bg-white/5 text-[#9E9E9E] cursor-not-allowed'
-                        : 'bg-[#111111] dark:bg-white text-white dark:text-black hover:opacity-90'
-                    }`}
-                  >
-                    {event.registered >= event.seats ? 'Event Full' : 'Register Now →'}
-                  </button>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </StaggerContainer>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
       <BookingModal
