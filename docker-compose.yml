@@ -1,0 +1,9 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fen-website
+    ports:
+      - "80:80"
+    restart: unless-stopped
