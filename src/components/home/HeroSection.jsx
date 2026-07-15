@@ -61,7 +61,7 @@ export default function HeroSection() {
             <div className="space-y-4 text-center">
               <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-[#111111] dark:text-white text-center">
                 <BlurReveal delay={0.1} className="inline-block mr-3">Build</BlurReveal>
-                <BlurReveal delay={0.2} className="inline-block mr-3">Your</BlurReveal>
+                <BlurReveal delay={0.2} className="inline-block mr-3">the</BlurReveal>
                 <BlurReveal delay={0.3} className="inline-block mr-3 text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-500">Future.</BlurReveal>
                 <br />
               </h1>
